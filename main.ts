@@ -172,7 +172,7 @@ function GetCarDirectionalVelocity (posInput: boolean, negInput: boolean, origVe
     }
     return dirVel
 }
-function SpawnPowerups () {
+function SpawnPowerups (maxPowerups: number) {
     powerupCount = 0
     while (powerupCount < maxPowerups) {
         powerup = sprites.create(img`
@@ -209,6 +209,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.powerup, function (sprite, other
     speed = speed / 1.5
     breakSpeed = breakSpeed / 1.5
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
+    game.gameOver(true)
+})
 let powerup: Sprite = null
 let powerupCount = 0
 let deltaTime = 0
@@ -225,7 +228,6 @@ let deacceleration = 0
 let acceleration = 0
 let speed = 0
 let playerCar: Sprite = null
-let maxPowerups = 0
 let powerUpPositions: tiles.Location[] = []
 tiles.setCurrentTilemap(tilemap`level0`)
 powerUpPositions = [
@@ -240,8 +242,7 @@ tiles.getTileLocation(10, 23),
 tiles.getTileLocation(2, 30),
 tiles.getTileLocation(10, 18)
 ]
-maxPowerups = game.askForNumber("How many powerUps do you want to spawn?", 1)
-SpawnPowerups()
+SpawnPowerups(game.askForNumber("How many powerUps do you want to spawn?", 1))
 playerCar = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . 2 2 2 2 2 2 2 2 . . . . 
@@ -270,6 +271,7 @@ rangeToStop = 3
 minForDiagnal = 25
 movingDiagnal = false
 let frameTime = game.runtime()
+info.startCountdown(30)
 game.onUpdate(function () {
     UpdateCarPhysics()
     UpdateCarSprite()
