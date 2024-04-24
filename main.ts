@@ -119,6 +119,14 @@ function UpdateCarSprite () {
         }
     }
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile13`, function (sprite, location) {
+    tiles.setTileAt(location, sprites.vehicle.roadHorizontal)
+    checkpoints += 1
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile12`, function (sprite, location) {
+    tiles.setTileAt(location, sprites.vehicle.roadVertical)
+    checkpoints += 1
+})
 function UpdateCarPhysics () {
     if ((controller.left.isPressed() || controller.right.isPressed()) && (controller.down.isPressed() || controller.up.isPressed()) && !(movingDiagnal)) {
         movingDiagnal = true
@@ -210,7 +218,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.powerup, function (sprite, other
     breakSpeed = breakSpeed / 1.5
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
-    game.gameOver(true)
+    if (26 <= checkpoints) {
+        game.gameOver(true)
+    }
 })
 let powerup: Sprite = null
 let powerupCount = 0
@@ -220,6 +230,7 @@ let offRoad = false
 let isOnRoadTiles = false
 let movingRight = false
 let movingUp = false
+let checkpoints = 0
 let movingDiagnal = false
 let minForDiagnal = 0
 let rangeToStop = 0
@@ -270,8 +281,9 @@ breakSpeed = 80
 rangeToStop = 3
 minForDiagnal = 25
 movingDiagnal = false
+checkpoints = 0
 let frameTime = game.runtime()
-info.startCountdown(35)
+info.startCountdown(45)
 game.onUpdate(function () {
     UpdateCarPhysics()
     UpdateCarSprite()
