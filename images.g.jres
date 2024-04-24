@@ -1,0 +1,22 @@
+{
+    "image1": {
+        "data": "hwQQABAAAAAAAAAAAAIAAAAAAAAgIgAAAAAAACJMAgAAAAAgIswkAAAAACIiwiwCAAAgIiIi4i4AACIiIiS+DgAgIiJC4usPACIkIiS+/g8gIkJC4u7/ACLMIiTuDgAAEMQs4usAAAAAQiy+/gAAAAAQ4uv/AAAAAADh/g8AAAAAAOAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "car-diagnol-2"
+    },
+    "image2": {
+        "data": "hwQQABAAAAAAAOAAAAAAAAAA4f4PAAAAABDi6/8AAAAAQiy+/gAAABDELOLrAAAAIswiJO4OAAAgIkJC4u7/AAAiJCIkvv4PACAiIkLi6w8AACIiIiS+DgAAICIiIuIuAAAAIiLCLAIAAAAgIswkAAAAAAAiTAIAAAAAACAiAAAAAAAAAAIAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "diagnol_car_1"
+    },
+    "image3": {
+        "data": "hwQQABAAAAAAAAAAAAIAAAAAAAAgEgAAAAAAACJMAgAAAAAgIswUAAAAACIkwiwBAAAgIkIi4u4AACIiIiS+DgAgIiJC4usPACIiIiS+/g8gIiJC4u7/ACLMIiTuDgAAIMQs4usAAAAAQiy+/gAAAAAg4uv/AAAAAADi/g8AAAAAACAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "diagnol_car_3"
+    },
+    "*": {
+        "mimeType": "image/x-mkcd-f4",
+        "dataEncoding": "base64",
+        "namespace": "myImages"
+    }
+}
