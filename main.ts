@@ -1,6 +1,7 @@
 namespace SpriteKind {
     export const powerup = SpriteKind.create()
 }
+// Update the car sprite based on the velocity
 function UpdateCarSprite () {
     movingUp = playerCar.vy <= 0
     movingRight = playerCar.vx > 0
@@ -119,14 +120,17 @@ function UpdateCarSprite () {
         }
     }
 }
+// Check for checkpoints
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile13`, function (sprite, location) {
     tiles.setTileAt(location, sprites.vehicle.roadHorizontal)
     checkpoints += 1
 })
+// Check for checkpoints
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile12`, function (sprite, location) {
     tiles.setTileAt(location, sprites.vehicle.roadVertical)
     checkpoints += 1
 })
+// Update the player car directional velocities and reduce diagnal speed
 function UpdateCarPhysics () {
     if ((controller.left.isPressed() || controller.right.isPressed()) && (controller.down.isPressed() || controller.up.isPressed()) && !(movingDiagnal)) {
         movingDiagnal = true
@@ -143,6 +147,7 @@ function UpdateCarPhysics () {
     }
     playerCar.setVelocity(GetCarDirectionalVelocity(controller.right.isPressed(), controller.left.isPressed(), playerCar.vx), GetCarDirectionalVelocity(controller.down.isPressed(), controller.up.isPressed(), playerCar.vy))
 }
+// Update the car speed if it's off/on road
 function UpdateOffRoad () {
     isOnRoadTiles = tiles.tileAtLocationEquals(playerCar.tilemapLocation(), assets.tile`myTile`) || tiles.tileAtLocationEquals(playerCar.tilemapLocation(), sprites.vehicle.roadIntersection2) || tiles.tileAtLocationEquals(playerCar.tilemapLocation(), sprites.vehicle.roadIntersection1) || tiles.tileAtLocationEquals(playerCar.tilemapLocation(), sprites.vehicle.roadHorizontal) || tiles.tileAtLocationEquals(playerCar.tilemapLocation(), sprites.vehicle.roadIntersection3) || tiles.tileAtLocationEquals(playerCar.tilemapLocation(), assets.tile`myTile2`) || tiles.tileAtLocationEquals(playerCar.tilemapLocation(), assets.tile`myTile1`) || tiles.tileAtLocationEquals(playerCar.tilemapLocation(), assets.tile`myTile0`) || tiles.tileAtLocationEquals(playerCar.tilemapLocation(), sprites.vehicle.roadVertical)
     if (offRoad && isOnRoadTiles) {
@@ -153,6 +158,7 @@ function UpdateOffRoad () {
         speed = speed / 2
     }
 }
+// Update a direction velocity for the car
 function GetCarDirectionalVelocity (posInput: boolean, negInput: boolean, origVel: number) {
     dirVel = origVel
     if (dirVel >= speed && posInput) {
@@ -180,6 +186,7 @@ function GetCarDirectionalVelocity (posInput: boolean, negInput: boolean, origVe
     }
     return dirVel
 }
+// Spawn powerups in random locations with given max powerups
 function SpawnPowerups (maxPowerups: number) {
     powerupCount = 0
     while (powerupCount < maxPowerups) {
@@ -205,6 +212,7 @@ function SpawnPowerups (maxPowerups: number) {
         powerupCount += 1
     }
 }
+// Update powerup effects
 sprites.onOverlap(SpriteKind.Player, SpriteKind.powerup, function (sprite, otherSprite) {
     sprites.destroy(otherSprite)
     playerCar.startEffect(effects.trail)
@@ -217,11 +225,13 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.powerup, function (sprite, other
     speed = speed / 1.5
     breakSpeed = breakSpeed / 1.5
 })
+// If gone over enough checkpoints and are at the finish win the game
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
     if (26 <= checkpoints) {
         game.gameOver(true)
     }
 })
+// Set up variables, tilemap, player, and ask for powerups
 let powerup: Sprite = null
 let powerupCount = 0
 let deltaTime = 0
@@ -289,6 +299,7 @@ game.onUpdate(function () {
     UpdateCarSprite()
     UpdateOffRoad()
 })
+// Update delta time for frame independant physics
 forever(function () {
     deltaTime = (game.runtime() - frameTime) / 1000
     frameTime = game.runtime()
