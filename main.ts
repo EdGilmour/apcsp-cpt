@@ -271,7 +271,7 @@ rangeToStop = 3
 minForDiagnal = 25
 movingDiagnal = false
 let frameTime = game.runtime()
-info.startCountdown(30)
+info.startCountdown(35)
 game.onUpdate(function () {
     UpdateCarPhysics()
     UpdateCarSprite()
